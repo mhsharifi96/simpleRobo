@@ -31,7 +31,7 @@ class SimpleRobo:
         self.tershold_1 = 0.01
         self.tershold_2 = 0.02
         self.tershold_3 = 0.03
-        self.SLEEP_TIME = 3
+        self.SLEEP_TIME = 10
 
     def send_request(self, url):
         headers = {
