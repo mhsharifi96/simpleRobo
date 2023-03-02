@@ -5,3 +5,8 @@ if __name__ == "__main__":
     print(robo.allow_coins)
     robo.buy("BTC")
     
+
+
+with telegream: 
+    SimpleRobo().buy("BTC")
+    
