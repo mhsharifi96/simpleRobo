@@ -65,7 +65,7 @@ class RoboTradeApi:
 
     
 
-class SampleRobo:
+class SimpleRobo:
 
     def __init__(self) -> None:
         self.base_url = "https://api.nobitex.ir/v2/"
@@ -175,6 +175,6 @@ class SampleRobo:
 
 
 if __name__ == "__main__":
-    robo = SampleRobo()
+    robo = SimpleRobo()
     # robo.buy("BTC")
     robo.seller()

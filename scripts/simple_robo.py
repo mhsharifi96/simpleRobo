@@ -8,7 +8,7 @@ from trade_api import RoboTradeApi
 class HttpResponse:
     SUCCESS_CODE = 200
 
-class SampleRobo:
+class SimpleRobo:
 
     def __init__(self) -> None:
         self.base_url = "https://api.nobitex.ir/v2/"
@@ -16,10 +16,9 @@ class SampleRobo:
             'order': "orderbook/",
             'trads': "trades/"
         }
-        self.markets = ["BTC", "ETH", "LTC","XRP","BCH"]
+        self.allow_coins = ["BTC", "ETH", "LTC","XRP","BCH"]
         self.main_coin = "USDT"
         self.responses = {}
-
         self._api = RoboTradeApi()
         self.tershold_0 =0.005
         self.tershold_1 =0.01
@@ -79,7 +78,7 @@ class SampleRobo:
 
     
     def buy(self,coin):
-        if coin in self.markets:
+        if coin in self.allow_coins:
             response=self.request_order(coin=coin)
             response['coin'] = coin.upper()
             response['market'] = coin
@@ -91,7 +90,6 @@ class SampleRobo:
     def choice_sell(self,calc_profit_responses,new_order):
         for id,profit in calc_profit_responses.items():
             if profit > self.tershold_1:
-                print(new_order)
                 self._api.update(update_id=id, key='status',value='close')
                 self._api.update(update_id=id,key='report',value=json.dumps(new_order))
                 #TODO : send_email , add order for sell
@@ -99,7 +97,7 @@ class SampleRobo:
                 print("Unfortunately, the market is at a loss")
     
     def sell(self,coin):
-        # if market in self.markets:
+        # if market in self.allow_coins:
         old_orders = self._api.get_all(coin=coin) 
         new_order = self.request_order(coin=coin)
         calc_profit_responses = self.calc_profit(old_orders=old_orders,new_order=new_order)
@@ -109,7 +107,7 @@ class SampleRobo:
 
     def seller(self):
         while True : 
-            for coin in self.markets:
+            for coin in self.allow_coins:
                 if self._api.count_trade(coin=coin) > 0:
                     self.sell(coin=coin)
             sleep(self.SLEEP_TIME)
