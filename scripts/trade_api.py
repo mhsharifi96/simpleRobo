@@ -11,7 +11,7 @@ class RoboTradeApi:
         self.headers = {
             "content-type": "application/json"
         }
-        self.MAX_OPEN_TRADE =3
+        self.MAX_OPEN_TRADE = 5
     def request(self,slug):
         url = self.full_address + "/"+slug
         response = requests.request("GET", url, headers=self.headers)
